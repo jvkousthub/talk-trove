@@ -9,7 +9,9 @@ import { axiosReq } from "../../config/axios";
 import React, {useState} from "react";
 
 const Signup = () => {
+  
   const [show, setShow] = useState(false);
+  const [isSignupDisabled, setIsSignupDisabled] = useState(true);
   const handleClick = () => setShow(!show);
   const toast = useToast();
   const navigate = useNavigate();
@@ -45,6 +47,7 @@ const Signup = () => {
     const newPassword = e.target.value;
     setPassword(newPassword);
     setPasswordStrength(checkPasswordStrength(newPassword));
+    setIsButtonDisabled(!validatePassword(newPassword));
   }
   const getPasswordStrengthColor=()=>{
     switch(passwordStrength){
@@ -231,6 +234,7 @@ const Signup = () => {
         style={{ marginTop: 15 }}
         onClick={submitHandler}
         isLoading={picLoading}
+        disabled={isButtonDisabled}
       >
         Sign Up
       </Button>
